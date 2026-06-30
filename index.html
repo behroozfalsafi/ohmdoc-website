@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OhmDoc — Professional Electrical Equipment Testing</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #0d1b2e;
+      --navy2:   #111f35;
+      --navy3:   #162440;
+      --yellow:  #f5e642;
+      --yellow2: #ffe900;
+      --white:   #ffffff;
+      --gray:    #8a9bbf;
+      --gray2:   #4a5a7a;
+      --green:   #22c55e;
+      --red:     #ef4444;
+      --radius:  14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,27,46,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(245,230,66,0.12);
+      padding: 0 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-brand img { width: 36px; height: 36px; border-radius: 8px; }
+    .nav-brand span { font-size: 20px; font-weight: 800; color: var(--white); letter-spacing: -0.03em; }
+    .nav-cta {
+      background: var(--yellow); color: var(--navy);
+      font-weight: 700; font-size: 14px;
+      padding: 10px 20px; border-radius: 10px;
+      text-decoration: none; transition: opacity .2s;
+    }
+    .nav-cta:hover { opacity: 0.88; }
+
+    /* ── SECTIONS ── */
+    section { padding: 96px 24px; max-width: 1080px; margin: 0 auto; }
+    .section-full { max-width: 100%; padding-left: 0; padding-right: 0; }
+
+    .eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--yellow);
+      margin-bottom: 14px;
+    }
+    h1, h2 {
+      font-size: clamp(30px, 5vw, 56px);
+      font-weight: 900; line-height: 1.08;
+      letter-spacing: -0.03em; color: var(--white);
+      margin-bottom: 16px;
+    }
+    h2 { font-size: clamp(24px, 4vw, 42px); }
+    .sub {
+      font-size: clamp(15px, 2vw, 18px);
+      color: var(--gray); max-width: 580px; line-height: 1.65;
+      margin-bottom: 40px;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 92vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 120px 24px 80px;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(245,230,66,0.08) 0%, transparent 70%),
+        var(--navy);
+    }
+    #hero img.logo {
+      width: 90px; height: 90px; border-radius: 20px;
+      margin-bottom: 28px;
+      box-shadow: 0 0 40px rgba(245,230,66,0.2);
+    }
+    #hero h1 { max-width: 820px; }
+    #hero h1 span { color: var(--yellow); }
+    #hero .sub { margin: 0 auto 40px; max-width: 620px; }
+    .hero-badges {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      justify-content: center; margin-bottom: 48px;
+    }
+    .badge {
+      background: rgba(245,230,66,0.1);
+      border: 1px solid rgba(245,230,66,0.2);
+      color: var(--yellow); font-size: 13px; font-weight: 600;
+      padding: 6px 14px; border-radius: 20px;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--yellow); color: var(--navy);
+      font-weight: 800; font-size: 16px;
+      padding: 16px 36px; border-radius: var(--radius);
+      text-decoration: none; transition: all .2s;
+      box-shadow: 0 4px 24px rgba(245,230,66,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(245,230,66,0.4); }
+    .btn-secondary {
+      display: inline-block;
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      color: var(--white); font-weight: 600; font-size: 16px;
+      padding: 15px 32px; border-radius: var(--radius);
+      text-decoration: none; transition: all .2s; margin-left: 14px;
+    }
+    .btn-secondary:hover { border-color: var(--yellow); color: var(--yellow); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(245,230,66,0.15), transparent);
+      margin: 0 auto; max-width: 900px;
+    }
+
+    /* ── PROBLEMS ── */
+    #problems { padding-top: 80px; padding-bottom: 80px; }
+    .problems-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px; margin-top: 48px;
+    }
+    .problem-card {
+      background: var(--navy2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: border-color .2s;
+    }
+    .problem-card:hover { border-color: rgba(245,230,66,0.25); }
+    .problem-title {
+      font-size: 15px; font-weight: 700;
+      color: var(--white); margin-bottom: 8px;
+    }
+    .problem-body {
+      font-size: 13px; color: var(--gray); line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .problem-solution {
+      font-size: 13px; color: var(--yellow);
+      font-weight: 600; line-height: 1.5;
+      padding-top: 12px;
+      border-top: 1px solid rgba(245,230,66,0.15);
+    }
+    .problem-solution::before { content: "✓  "; }
+
+    /* ── ROI CALCULATOR ── */
+    #roi {
+      background: var(--navy2);
+      border-top: 1px solid rgba(245,230,66,0.1);
+      border-bottom: 1px solid rgba(245,230,66,0.1);
+      padding: 96px 24px;
+    }
+    #roi .inner { max-width: 1080px; margin: 0 auto; }
+    .calc-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 32px; align-items: start; margin-top: 48px;
+    }
+    @media(max-width:680px){ .calc-grid { grid-template-columns: 1fr; } }
+    .inputs-panel {
+      background: var(--navy3);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius); padding: 32px;
+    }
+    .inputs-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--gray2); margin-bottom: 28px;
+    }
+    .field { margin-bottom: 24px; }
+    .field:last-child { margin-bottom: 0; }
+    .field label {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: 13px; color: var(--gray); margin-bottom: 10px; font-weight: 500;
+    }
+    .field label span { font-size: 17px; font-weight: 700; color: var(--yellow); }
+    input[type=range] {
+      -webkit-appearance: none; appearance: none;
+      width: 100%; height: 4px; border-radius: 2px;
+      background: var(--navy); outline: none; cursor: pointer;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 20px; height: 20px;
+      border-radius: 50%; background: var(--yellow);
+      cursor: pointer; border: 3px solid var(--navy2);
+      box-shadow: 0 0 0 2px var(--yellow);
+    }
+    .results-panel { display: flex; flex-direction: column; gap: 16px; }
+    .result-card {
+      background: var(--navy3);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius); padding: 24px 28px;
+    }
+    .result-card.highlight { border-color: var(--yellow); }
+    .result-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--gray2); margin-bottom: 8px;
+    }
+    .result-value {
+      font-size: clamp(28px, 4vw, 42px); font-weight: 900;
+      color: var(--white); letter-spacing: -0.02em; line-height: 1;
+      margin-bottom: 6px;
+    }
+    .result-card.highlight .result-value { color: var(--yellow); }
+    .result-sub { font-size: 13px; color: var(--gray); line-height: 1.4; }
+    .bar-track {
+      height: 5px; background: var(--navy); border-radius: 3px;
+      overflow: hidden; margin-top: 10px;
+    }
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--yellow), #ff9900);
+      border-radius: 3px; transition: width .4s cubic-bezier(.4,0,.2,1);
+    }
+    .calc-note {
+      margin-top: 20px; font-size: 12px; color: var(--gray2);
+      text-align: center; line-height: 1.6;
+    }
+    .field-divider {
+      height: 1px; background: rgba(255,255,255,0.06);
+      margin: 8px 0 20px;
+    }
+
+    /* ── FEATURES ── */
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px; margin-top: 48px;
+    }
+    .feature-card {
+      background: var(--navy2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius); padding: 28px;
+      transition: border-color .2s, transform .2s;
+    }
+    .feature-card:hover { border-color: rgba(245,230,66,0.2); transform: translateY(-2px); }
+    .feature-icon {
+      font-size: 28px; margin-bottom: 14px; display: block;
+    }
+    .feature-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .feature-body { font-size: 13px; color: var(--gray); line-height: 1.65; }
+    .coming-soon-tag {
+      display: inline-block;
+      font-size: 10px; font-weight: 700;
+      background: rgba(245,230,66,0.12);
+      color: var(--yellow); padding: 3px 8px;
+      border-radius: 6px; margin-left: 8px;
+      vertical-align: middle; letter-spacing: .05em;
+    }
+
+    /* ── COMING SOON ── */
+    #coming { background: var(--navy2); padding: 96px 24px; }
+    #coming .inner { max-width: 1080px; margin: 0 auto; }
+    .soon-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px; margin-top: 48px;
+    }
+    .soon-card {
+      background: var(--navy);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius); padding: 22px;
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .soon-icon {
+      font-size: 22px; flex-shrink: 0; margin-top: 2px;
+    }
+    .soon-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .soon-body { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
+    /* ── PRICING ── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px; margin-top: 48px;
+    }
+    .plan-card {
+      background: var(--navy2);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius); padding: 28px;
+      position: relative;
+    }
+    .plan-card.featured {
+      background: var(--yellow);
+      border-color: var(--yellow);
+    }
+    .plan-card.featured * { color: var(--navy) !important; }
+    .plan-card.featured .plan-feature-x { opacity: .4; }
+    .popular-badge {
+      position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+      background: var(--navy); color: var(--yellow);
+      font-size: 10px; font-weight: 800; padding: 3px 10px;
+      border-radius: 10px; letter-spacing: .08em; text-transform: uppercase;
+      border: 1px solid var(--yellow);
+    }
+    .plan-name { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+    .plan-price { font-size: 28px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 4px; }
+    .plan-cycle { font-size: 12px; color: var(--gray); margin-bottom: 16px; }
+    .plan-card.featured .plan-cycle { color: rgba(13,27,46,0.6); }
+    .plan-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 16px 0; }
+    .plan-card.featured .plan-divider { background: rgba(13,27,46,0.15); }
+    .plan-feature {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; margin-bottom: 8px; color: var(--white);
+    }
+    .plan-feature-check { color: var(--green); font-weight: 700; }
+    .plan-feature-x { color: var(--gray2); font-weight: 700; }
+    .plan-card.featured .plan-feature-check { color: var(--navy); }
+    .plan-note {
+      font-size: 11px; color: var(--gray); text-align: center;
+      margin-top: 24px; line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #080f1c;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 64px 24px 40px;
+      text-align: center;
+    }
+    .footer-logo { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px; }
+    .footer-logo img { width: 44px; height: 44px; border-radius: 10px; }
+    .footer-logo span { font-size: 22px; font-weight: 800; }
+    .footer-tagline { font-size: 14px; color: var(--gray); margin-bottom: 32px; }
+    .footer-cta { margin-bottom: 40px; }
+    .footer-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 32px; }
+    .footer-links a { font-size: 13px; color: var(--gray); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--yellow); }
+    .footer-copy { font-size: 12px; color: var(--gray2); }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:600px){
+      nav { padding: 0 16px; }
+      #hero { padding: 100px 20px 60px; }
+      .btn-secondary { margin-left: 0; margin-top: 12px; }
+      section { padding: 64px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">
+    <img src="logo.png" alt="OhmDoc logo">
+    <span>OhmDoc</span>
+  </a>
+  <a class="nav-cta" href="mailto:bf100219@gmail.com">Request Access</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="section-full">
+  <img class="logo" src="logo.png" alt="OhmDoc">
+  <p class="eyebrow">Professional Electrical Equipment Testing</p>
+  <h1>Test Smarter.<br><span>Document Everything.</span><br>Run Your Shop.</h1>
+  <p class="sub">OhmDoc is a fully customizable electrical equipment testing and inspection platform with an optional AI assistant — built for technicians who work with real hardware in real conditions.</p>
+  <div class="hero-badges">
+    <span class="badge">⚡ Fully Customizable</span>
+    <span class="badge">🤖 Optional AI Assistant</span>
+    <span class="badge">📋 Equipment Agnostic</span>
+    <span class="badge">📊 Real-Time Analytics</span>
+    <span class="badge">📄 PDF Reports</span>
+  </div>
+  <div>
+    <a class="btn-primary" href="mailto:bf100219@gmail.com">Request Access</a>
+    <a class="btn-secondary" href="#problems">See How It Works</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROBLEMS -->
+<section id="problems">
+  <p class="eyebrow">Sound Familiar?</p>
+  <h2>The Problems Every Testing Shop Deals With</h2>
+  <p class="sub">OhmDoc was built by a technician who lived every one of these problems.</p>
+
+  <div class="problems-grid">
+
+    <div class="problem-card">
+      <div class="problem-title">📦 Inventory is a black box</div>
+      <div class="problem-body">Nobody knows exactly what's in the yard — how many units, what type, what status. Work gets duplicated, units get missed.</div>
+      <div class="problem-solution">Real-time inventory dashboard with every unit, every status, searchable in seconds.</div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-title">📁 Test sheets get lost. Reports go missing.</div>
+      <div class="problem-body">Paper forms scatter. Digital files end up in the wrong folder or never get filed at all.</div>
+      <div class="problem-solution">Every test sheet and report lives in OhmDoc permanently. One search, one tap, it's there.</div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-title">🔁 The same data gets entered three times</div>
+      <div class="problem-body">One tech fills out a report. Another fills out theirs. A clerk re-enters it all from scratch. Same serial number, typed over and over.</div>
+      <div class="problem-solution">Unit data captured once at intake. Every report and document pulls from the same record automatically.</div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-title">⏳ Senior techs spend hours approving paperwork</div>
+      <div class="problem-body">A lead tech has to sit down, pull physical sheets, manually review every value, and sign off one by one.</div>
+      <div class="problem-solution">Pending approvals in a queue. Review results, compare to history, approve with one tap.</div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-title">📅 Expired calibration standards slip through</div>
+      <div class="problem-body">A tech runs a test with an out-of-cal standard. Nobody catches it — now the results are invalid and the test has to be repeated.</div>
+      <div class="problem-solution">Every standard tracked with expiration status visible at a glance. Always know what's current.</div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-title">🔍 Unit history is scattered or nonexistent</div>
+      <div class="problem-body">A transformer comes back to the shop. Was this the same problem as last time? Nobody knows because the records are gone.</div>
+      <div class="problem-solution">Complete asset history for every unit — every test, every technician, every status, every return.</div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-title">🧮 Manual calculations introduce errors</div>
+      <div class="problem-body">Techs do unit conversions by hand, use the wrong multiplier, or enter values in the wrong unit. The error makes it into the report.</div>
+      <div class="problem-solution">Configured units, multipliers, and limits. Calculated fields update automatically. Out-of-range values flagged immediately.</div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-title">❓ Junior techs don't know what tests to run</div>
+      <div class="problem-body">An unfamiliar unit comes in. The tech calls a senior who gives their best guess from memory. The procedure lives in someone's head.</div>
+      <div class="problem-solution">AI assistant trained on your shop's procedures tells techs what to run, what standards to use, what instruments to reach for.</div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-title">📵 Supervisors are unreachable when decisions need to be made</div>
+      <div class="problem-body">A unit fails and needs to go RTM. The supervisor is off-site. Nothing moves until they're back.</div>
+      <div class="problem-solution">Supervisors get full visibility from their phone — unit status, test results, RTM flags — decisions made same day.</div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-title">🏷️ Labels are created manually and full of errors</div>
+      <div class="problem-body">Someone types the serial number by hand. One transposed digit and the unit is misidentified for its entire life in the system.</div>
+      <div class="problem-solution">OhmDoc generates unit labels automatically from scanned data. One tap, correct label, every time.</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ROI CALCULATOR -->
+<div id="roi">
+  <div class="inner">
+    <p class="eyebrow">Return on Investment</p>
+    <h2>How Much Is Manual Testing Costing You?</h2>
+    <p class="sub">Every hour spent on paperwork is money. Adjust the sliders to match your shop and see how fast OhmDoc pays for itself.</p>
+
+    <div class="calc-grid">
+      <div class="inputs-panel">
+        <p class="inputs-label">Your Shop</p>
+
+        <div class="field">
+          <label>Units tested per month <span id="val-units">150</span></label>
+          <input type="range" id="units" min="10" max="1000" step="10" value="150" oninput="calc()">
+        </div>
+        <div class="field">
+          <label>Minutes saved per test sheet <span><span id="val-sheet">30</span> min</span></label>
+          <input type="range" id="sheet" min="5" max="90" step="5" value="30" oninput="calc()">
+        </div>
+        <div class="field">
+          <label>Minutes saved per approval <span><span id="val-approval">20</span> min</span></label>
+          <input type="range" id="approval" min="5" max="60" step="5" value="20" oninput="calc()">
+        </div>
+        <div class="field">
+          <label>Minutes saved on re-entry <span><span id="val-admin">15</span> min</span></label>
+          <input type="range" id="admin" min="5" max="60" step="5" value="15" oninput="calc()">
+        </div>
+
+        <div class="field-divider"></div>
+
+        <div class="field">
+          <label>Technician hourly rate <span>$<span id="val-techrate">35</span></span></label>
+          <input type="range" id="techrate" min="20" max="100" step="5" value="35" oninput="calc()">
+        </div>
+        <div class="field">
+          <label>Supervisor hourly rate <span>$<span id="val-adminrate">55</span></span></label>
+          <input type="range" id="adminrate" min="30" max="150" step="5" value="55" oninput="calc()">
+        </div>
+        <div class="field">
+          <label>OhmDoc monthly cost <span>$<span id="val-plan">999</span></span></label>
+          <input type="range" id="plan" min="0" max="1500" step="29.99" value="999" oninput="calc()">
+        </div>
+      </div>
+
+      <div class="results-panel">
+        <div class="result-card highlight">
+          <p class="result-label">Estimated Annual Savings</p>
+          <p class="result-value" id="annual-savings">$0</p>
+          <p class="result-sub">In recovered labor time across technicians, supervisors, and admin staff.</p>
+        </div>
+        <div class="result-card">
+          <p class="result-label">Hours Saved Per Month</p>
+          <p class="result-value" id="hours-month">0 hrs</p>
+          <p class="result-sub">Across documentation, approvals, and data re-entry.</p>
+        </div>
+        <div class="result-card">
+          <p class="result-label">Monthly Labor Savings</p>
+          <p class="result-value" id="monthly-savings">$0</p>
+          <p class="result-sub">Versus your current manual process.</p>
+        </div>
+        <div class="result-card">
+          <p class="result-label">OhmDoc Pays for Itself In</p>
+          <p class="result-value" id="payback">— days</p>
+          <p class="result-sub">Based on your plan cost vs. monthly savings.</p>
+          <div class="bar-track"><div class="bar-fill" id="payback-bar"></div></div>
+        </div>
+      </div>
+    </div>
+    <p class="calc-note">Conservative estimates. Most shops save significantly more once report search time, error correction, and repeat data entry are factored in.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- FEATURES -->
+<section id="features">
+  <p class="eyebrow">What OhmDoc Does</p>
+  <h2>Everything Your Shop Needs.<br>Nothing It Doesn't.</h2>
+  <p class="sub">Fully customizable for any equipment type. Works with transformers, switchgear, motors, and anything else your shop tests.</p>
+
+  <div class="features-grid">
+
+    <div class="feature-card">
+      <span class="feature-icon">📷</span>
+      <div class="feature-title">Quick Scan Intake</div>
+      <div class="feature-body">Scan the barcode on any unit label. OhmDoc pulls the serial number, manufacturer, and material code automatically. The unit is added to inventory and ready for testing — no manual entry. Ideal for SAP-based operations with standardized material codes.</div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">📋</span>
+      <div class="feature-title">Fully Customizable Test Sheets</div>
+      <div class="feature-body">Build test sheets from scratch using any combination of field types — text, numbers, calculations, photos, signatures, and more. Configure it once for each equipment type and reuse it forever. No hardcoded assumptions about what you test.</div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">𝑓(𝑥)</span>
+      <div class="feature-title">Built-In Formula Engine</div>
+      <div class="feature-body">Define calculated fields that compute automatically from your test data. Temperature correction, polarization index, turns ratio expected values, pass/fail logic — all configurable without external tools. Fields flag out-of-range values instantly.</div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">📦</span>
+      <div class="feature-title">Inventory & Asset History</div>
+      <div class="feature-body">Every unit carries a full asset history — when it arrived, who tested it, who approved it, and every status including pass, fail, and return to manufacturer. If a unit comes back, the as-found status is already on record.</div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">📊</span>
+      <div class="feature-title">Analytics & Manufacturer Intelligence</div>
+      <div class="feature-body">Track pass rates by manufacturer, model, equipment type, and technician automatically. Set testing goals with deadlines and monitor real-time progress. Build institutional knowledge about which vendors deliver reliable equipment.</div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">🛡️</span>
+      <div class="feature-title">Calibration Standards Tracking</div>
+      <div class="feature-body">Maintain a complete list of calibration standards and reference instruments with expiration status visible at a glance. Always know what's current before a test begins. No spreadsheets, no wall calendars, no surprises.</div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">📄</span>
+      <div class="feature-title">Professional PDF Reports</div>
+      <div class="feature-body">When a test is complete, OhmDoc generates a clean, structured PDF report — formatted, signed, and ready to share. No reformatting. No manual entry. The report is a direct output of the test data your technician entered.</div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">✅</span>
+      <div class="feature-title">One-Tap Approval Workflow</div>
+      <div class="feature-body">Pending test sheets queue up for supervisor review. Open one, review results, compare to historical data if needed, and approve with a single tap. No stacks of paper. No hunting for files. Hours of approval work reduced to minutes.</div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">🤖</span>
+      <div class="feature-title">Optional AI Assistant</div>
+      <div class="feature-body">An AI assistant that learns your shop over time. Ask what tests to run, get guidance on procedures, or describe a calculation in plain language and let AI write the formula syntax for you. Gets smarter and more relevant the more your team uses it.</div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">🏷️</span>
+      <div class="feature-title">Tags & Cohort Tracking</div>
+      <div class="feature-body">Group units and test sheets however your operation requires. Track inspection vs. reconditioning ratios against targets. Follow a specific batch of equipment — like a pilot program — from intake through final disposition.</div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">🔐</span>
+      <div class="feature-title">Role-Based Access Control</div>
+      <div class="feature-body">Every team member gets exactly the access they need. Technicians see their work queue. Supervisors see approvals and analytics. Admins control everything. Guest access for visitors with zero data exposure.</div>
+    </div>
+
+    <div class="feature-card">
+      <span class="feature-icon">☁️</span>
+      <div class="feature-title">Flexible Data Storage</div>
+      <div class="feature-body">Choose where your data lives. On-device only for maximum privacy, your own company server for full control, or OhmDoc's encrypted cloud for seamless multi-user sync. Your data, your rules.</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMING SOON -->
+<div id="coming">
+  <div class="inner">
+    <p class="eyebrow">Coming Soon</p>
+    <h2>The Roadmap</h2>
+    <p class="sub">OhmDoc is growing from a field testing tool into a full shop management platform. Here's what's next.</p>
+
+    <div class="soon-grid">
+
+      <div class="soon-card">
+        <span class="soon-icon">🧠</span>
+        <div>
+          <div class="soon-title">AI-Assisted Material Code Setup</div>
+          <div class="soon-body">The AI will read equipment nameplates and populate your material code table automatically — KVA, voltage class, manufacturer, type — with no manual column entry.</div>
+        </div>
+      </div>
+
+      <div class="soon-card">
+        <span class="soon-icon">💬</span>
+        <div>
+          <div class="soon-title">AI Formula Building</div>
+          <div class="soon-body">Describe a calculation in plain language — "divide KVA by primary voltage multiplied by three" — and the AI translates it into the correct formula syntax instantly.</div>
+        </div>
+      </div>
+
+      <div class="soon-card">
+        <span class="soon-icon">🌐</span>
+        <div>
+          <div class="soon-title">Web Dashboard for Admins</div>
+          <div class="soon-body">Full inventory, analytics, and report approval access from any browser — no app install required. Built for supervisors and managers who need visibility without being on the floor.</div>
+        </div>
+      </div>
+
+      <div class="soon-card">
+        <span class="soon-icon">📸</span>
+        <div>
+          <div class="soon-title">Point. Scan. Start Testing.</div>
+          <div class="soon-body">Photograph any nameplate and OhmDoc identifies the unit, pulls the right test sheet, and flags any missing instruments — before testing begins.</div>
+        </div>
+      </div>
+
+      <div class="soon-card">
+        <span class="soon-icon">📡</span>
+        <div>
+          <div class="soon-title">Bluetooth Instrument Integration</div>
+          <div class="soon-body">Connect Bluetooth-capable test instruments directly to OhmDoc. Readings push into the test sheet automatically — no manual transcription, no errors.</div>
+        </div>
+      </div>
+
+      <div class="soon-card">
+        <span class="soon-icon">📝</span>
+        <div>
+          <div class="soon-title">Smart Document Generation</div>
+          <div class="soon-body">One-click RTM letters, failure notifications, and RCA reports. Auto-filled with unit data, test results, and manufacturer contacts from your database. Preview, edit, send.</div>
+        </div>
+      </div>
+
+      <div class="soon-card">
+        <span class="soon-icon">🔌</span>
+        <div>
+          <div class="soon-title">Test Connection Diagrams</div>
+          <div class="soon-body">Embed wiring diagrams directly inside test sheets so technicians know exactly how to connect instruments before they start — insulation resistance, TTR, power factor, and more.</div>
+        </div>
+      </div>
+
+      <div class="soon-card">
+        <span class="soon-icon">📈</span>
+        <div>
+          <div class="soon-title">AI-Generated Reports</div>
+          <div class="soon-body">Monthly analytics and inventory summaries generated automatically by the AI — pass rate trends, manufacturer performance, testing goals — formatted and ready to share with management.</div>
+        </div>
+      </div>
+
+      <div class="soon-card">
+        <span class="soon-icon">👁️</span>
+        <div>
+          <div class="soon-title">AI Visual Inspection</div>
+          <div class="soon-body">Attach photos or video during internal inspections. OhmDoc flags visual anomalies against a library of known failure patterns — loose hardware, metal contamination, insulation damage.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PRICING -->
+<section id="pricing">
+  <p class="eyebrow">Pricing</p>
+  <h2>Start Free. Scale When You're Ready.</h2>
+  <p class="sub">From a solo technician to a full testing operation — OhmDoc scales without customization fees or IT overhead.</p>
+
+  <div class="pricing-grid">
+
+    <div class="plan-card">
+      <div class="plan-name">Free</div>
+      <div class="plan-price">$0</div>
+      <div class="plan-cycle">Free forever</div>
+      <div class="plan-divider"></div>
+      <div class="plan-feature"><span class="plan-feature-check">✓</span> 1 seat</div>
+      <div class="plan-feature"><span class="plan-feature-check">✓</span> AI: 50 messages/month</div>
+      <div class="plan-feature"><span class="plan-feature-x">✗</span> PDF reports</div>
+      <div class="plan-feature"><span class="plan-feature-x">✗</span> Cloud sync</div>
+    </div>
+
+    <div class="plan-card" style="border-color: rgba(245,230,66,0.3); position:relative;">
+      <div class="popular-badge">POPULAR</div>
+      <div class="plan-name">Pro</div>
+      <div class="plan-price">$29.99</div>
+      <div class="plan-cycle">per seat / month</div>
+      <div class="plan-divider"></div>
+      <div class="plan-feature"><span class="plan-feature-check">✓</span> Unlimited seats</div>
+      <div class="plan-feature"><span class="plan-feature-check">✓</span> AI: 200 messages/month</div>
+      <div class="plan-feature"><span class="plan-feature-check">✓</span> PDF reports</div>
+      <div class="plan-feature"><span class="plan-feature-check">✓</span> Cloud sync</div>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-name">Business</div>
+      <div class="plan-price">$49.99</div>
+      <div class="plan-cycle">per seat / month</div>
+      <div class="plan-divider"></div>
+      <div class="plan-feature"><span class="plan-feature-check">✓</span> Unlimited seats</div>
+      <div class="plan-feature"><span class="plan-feature-check">✓</span> AI: 1,000 messages/month</div>
+      <div class="plan-feature"><span class="plan-feature-check">✓</span> PDF reports</div>
+      <div class="plan-feature"><span class="plan-feature-check">✓</span> Cloud sync</div>
+    </div>
+
+    <div class="plan-card" style="border-color: var(--yellow); background: linear-gradient(135deg, #1a2a10 0%, var(--navy2) 100%);">
+      <div class="plan-name" style="color:var(--yellow);">Department</div>
+      <div class="plan-price" style="color:var(--yellow);">$999</div>
+      <div class="plan-cycle">flat / month · up to 30 seats</div>
+      <div class="plan-divider"></div>
+      <div class="plan-feature"><span class="plan-feature-check">✓</span> Up to 30 seats</div>
+      <div class="plan-feature"><span class="plan-feature-check">✓</span> AI: Unlimited messages</div>
+      <div class="plan-feature"><span class="plan-feature-check">✓</span> PDF reports</div>
+      <div class="plan-feature"><span class="plan-feature-check">✓</span> Cloud sync</div>
+      <div class="plan-feature"><span class="plan-feature-check">✓</span> Priority support</div>
+      <div class="plan-feature" style="font-size:12px; color:var(--yellow); margin-top:8px;">⭐ Founding partner rate</div>
+    </div>
+
+  </div>
+
+  <p class="plan-note">Pricing is per department. Additional departments can be added with their own plans.<br>Enterprise plans with custom AI configuration available — <a href="mailto:bf100219@gmail.com" style="color:var(--yellow);">contact us</a>.</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="logo.png" alt="OhmDoc">
+    <span>OhmDoc</span>
+  </div>
+  <p class="footer-tagline">Professional electrical equipment testing, built for the field.</p>
+  <div class="footer-cta">
+    <a class="btn-primary" href="mailto:bf100219@gmail.com">Request Access → bf100219@gmail.com</a>
+  </div>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Use</a>
+    <a href="mailto:bf100219@gmail.com">Contact</a>
+  </div>
+  <p class="footer-copy">OhmDoc is a product of RenewSpark. © 2026 RenewSpark. All rights reserved.</p>
+</footer>
+
+<script>
+  function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+  function calc() {
+    const units    = +document.getElementById('units').value;
+    const sheet    = +document.getElementById('sheet').value;
+    const approval = +document.getElementById('approval').value;
+    const admin    = +document.getElementById('admin').value;
+    const techrate = +document.getElementById('techrate').value;
+    const arate    = +document.getElementById('adminrate').value;
+    const plan     = +document.getElementById('plan').value;
+
+    document.getElementById('val-units').textContent    = units;
+    document.getElementById('val-sheet').textContent    = sheet;
+    document.getElementById('val-approval').textContent = approval;
+    document.getElementById('val-admin').textContent    = admin;
+    document.getElementById('val-techrate').textContent = techrate;
+    document.getElementById('val-adminrate').textContent= arate;
+    document.getElementById('val-plan').textContent     = Math.round(plan);
+
+    const techHrs  = units * (sheet / 60);
+    const supHrs   = units * (approval / 60);
+    const admHrs   = units * (admin / 60);
+    const total    = techHrs + supHrs + admHrs;
+    const labor    = techHrs * techrate + supHrs * arate + admHrs * arate;
+    const net      = labor - plan;
+    const annual   = net * 12;
+    const payback  = plan > 0 ? Math.max(1, Math.round((plan / labor) * 30)) : 0;
+
+    document.getElementById('hours-month').textContent    = total.toFixed(1) + ' hrs';
+    document.getElementById('monthly-savings').textContent = fmt(net);
+    document.getElementById('annual-savings').textContent  = fmt(annual);
+    document.getElementById('payback').textContent =
+      plan === 0 ? 'Free plan' : payback + (payback === 1 ? ' day' : ' days');
+    document.getElementById('payback-bar').style.width =
+      plan === 0 ? '100%' : Math.min(100, Math.max(4, 100 - (payback/30)*100)) + '%';
+  }
+  calc();
+</script>
+
+</body>
+</html>
